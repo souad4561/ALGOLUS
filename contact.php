@@ -114,10 +114,10 @@ include('header.php');
                     </div>
                 </div>
                 <div class="col-right">
-                    <form id="contactform" action="./contact/contact-process.php" method="post" class="form-contact form-submit">
+                    <form id="" action="./contact/contact-process.php" method="post" class="form-contact form-submit">
                         <div class="text-wrap d-sm-flex clearfix">
                             <div class="w-left">
-                                <input type="text" name="name" id="name" value="" class="name" placeholder="Nom:">
+                                <input type="text" name="nom" id="name" value="" class="name" placeholder="Nom:">
                             </div>
                             <div class="w-right">
                                 <input type="text" name="email" id="email" value="" class="email" placeholder="Email:">
@@ -125,18 +125,18 @@ include('header.php');
                         </div>
                         <div class="text-wrap d-sm-flex clearfix">
                             <div class="w-left">
-                                <input type="text" name="subject" id="subject" value="" class="subject" placeholder="Sujet:">
+                                <input type="text" name="sujet" id="subject" value="" class="subject" placeholder="Sujet:">
                             </div>
                             <div class="w-right">
-                                <input type="text" name="phone" id="phone" value="" class="phone" placeholder="Téléphone:">
+                                <input type="text" name="telephone" id="phone" value="" class="phone" placeholder="Téléphone:">
                             </div>
                         </div>
                         <div class="message-wrap">
-                            <textarea name="message" id="comment-message" rows="8" placeholder="Message" required="required"></textarea>
+                            <textarea name="msg" id="comment-message" rows="8" placeholder="Message" required="required"></textarea>
                         </div>
                          <div class="fl-btn btn-linear linear-color-one" >
                             
-                            <button  name="submit" type="submit" class="submit btn-contact hv-linear border-corner" id="submit">contacter Aujourd'hui</button>
+                            <button  name="submit" type="submit" class="submit btn-contact hv-linear border-corner" >contacter Aujourd'hui</button>
                         </div> 
                     </form>
                 </div>

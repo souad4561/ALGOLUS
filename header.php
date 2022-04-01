@@ -17,6 +17,9 @@
                                 <li ><a class="<?= $a1?>" href="home2.php">Accueil</a>
                                    
                                 </li>
+                                <li ><a class="<?= $a7?>" href="index1.php">Académie</a>
+                                   
+                                   </li>
                                 <li><a class="<?= $a2?>" href="services.php">Services</a>
                                     <ul class="sub-menu" >
                                         <li><a href="creation-site.php">Création de site web</a></li>

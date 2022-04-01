@@ -234,7 +234,7 @@ include('header.php');
                 </div>
             </div>
             <div class="fl-btn btn-linear linear-color-one mg-50 text-center">
-                <a href="services-details-sidebar-left.php" class="btn-send hv-linear border-corner">other services</a>
+                <!-- <a href="services-details-sidebar-left.php" class="btn-send hv-linear border-corner">other services</a> -->
             </div>
         </div>
     </div><!-- services -->

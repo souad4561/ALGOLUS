@@ -1,4 +1,27 @@
 <?php
+$con = new PDO('mysql:host=localhost:3306;dbname=algolus', 'root', '');
+// set the PDO error mode to exception
+// $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+if(isset($_POST["submit"]))
+{
+	$nom = $_POST["nom"];
+	$mail = $_POST["email"];
+	$tele = $_POST["telephone"];
+	$sujet = $_POST["sujet"];
+	$msg = $_POST["msg"];
+
+	$sql = "INSERT INTO `contact`(`nom`,`email`,`telephone`,`sujet`,`msg`) VALUES ('$nom','$mail',$tele,'$sujet','$msg');";
+
+        // use exec() because no results are returned
+        $con->exec($sql); 
+		header("Location:../contact.php");
+		
+}
+?>
+
+<?php
 $address = "algolus2020@gmail.com";
 if (!defined("PHP_EOL")) define("PHP_EOL", "\r\n");
 
@@ -12,11 +35,11 @@ foreach ( $fields as $field ) {
 
 if ( !$error ) {
 
-	$name = stripslashes($_POST['name']);
-	$email = trim($_POST['email']);	
-	$message = stripslashes($_POST['message']);
-	$phone = trim($_POST['phone']);
-	$subject = trim($_POST['subject']);
+	$name = $_POST["nom"];
+	$email = $_POST["email"];
+	$phone = $_POST["telephone"];
+	$subject = $_POST["sujet"];
+	$message = $_POST["msg"];
 
 	$e_subject = 'You\'ve been contacted by ' . $name . '.';
 	
@@ -31,7 +54,7 @@ if ( !$error ) {
 	
 
 	$msg = wordwrap( $e_body . $e_reply , 70 );
-
+    
 	$headers = "From: $email" . PHP_EOL;
 	$headers .= "Reply-To: $email" . PHP_EOL;
 	$headers .= "Content-type: text/plain; charset=utf-8" . PHP_EOL;

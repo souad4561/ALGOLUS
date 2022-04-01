@@ -22,7 +22,7 @@ $row=$statement->fetch(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Algolus </title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <link rel="icon" href="favicon.png" type="image/x-icon"> <!-- Favicon-->
     
     <!-- project css file  -->
     <link rel="stylesheet" href="assets/css/my-task.style.min.css">
@@ -54,7 +54,14 @@ $row=$statement->fetch(PDO::FETCH_ASSOC);
                 <li><a class="m-link active " href="categoriee.php"><i class="icofont-briefcase"></i> <span>Categories</span></a></li>
                 </li>
                 <li><a class="m-link " href="profile.php"><i class="icofont-user-male"></i> <span>Profile</span></a></li>
-
+                <li><a class="m-link " href="contact.php"><i class="icofont-users-alt-5"></i> <span>Contact</span></a></li>
+                <a class="m-link " data-bs-toggle="collapse" data-bs-target="#app-Components" href="#">
+                    <i class="icofont-contrast"></i> <span>App-Académie</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse show" id="app-Components">
+                    <li><a class="ms-link  " href="gestion-formation.php"> <span>Gestion des Formations </span></a></li>
+                    <li><a class="ms-link " href="gestionEtudiants.php"><span>Gestion des Etudiant</span></a></li>
+                </ul>
 </ul>
            <!-- Theme: Switch Theme -->
             <ul class="list-unstyled mb-0">
@@ -269,14 +276,14 @@ $row=$statement->fetch(PDO::FETCH_ASSOC);
                                                     <h5 class="modal-title  fw-bold" id="editprojectLabel"> Modifier un categorie</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="" method="POST">
+                                                <form action="php/ajouter_categorie.php" method="POST">
                                                 
                                                         <div class="modal-body">
 
                                                             <div class="mb-3"> 
                                                             
                                                                 <label for="exampleFormControlInput78" class="form-label">id</label>
-                                                                <input type="text" class="form-control" name="id_categorie" value="<?= $row['id_categorie']  ?>">
+                                                                <input type="hidden" class="form-control" name="id_categorie" value="<?= $row['id_categorie']  ?>">
 
                                                                 <label for="exampleFormControlInput78" class="form-label">Nom</label>                       
                                                                 <input type="text" class="form-control" name="nom_categorie" value=" <?= $row['nom_categorie'] ?>">
@@ -294,46 +301,15 @@ $row=$statement->fetch(PDO::FETCH_ASSOC);
                                             </div>
                                             </div>
                                         </div> 
-
+                                     
                                 
               <!-- Modal  Delete Folder/ File-->
               
                                 <div class="modal fade" id="deleteproject_<?= $row['id_categorie'] ?>" tabindex="-1"  aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-md ">
                                     <div class="modal-content">
-                                    <?php
-
-try {
-    if(isset($_POST['delete']))
-    { 
-        
-        $id=$_POST['id_categorie'];   
-        
-        $con= new PDO('mysql:host=localhost:3306;dbname=algolus','root','');
-        // set the PDO error mode to exception
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-        $sql = "DELETE FROM categorie  WHERE id_categorie=$id ";
-    
-        // Prepare statement
-        $stmt = $con->prepare($sql);
-    
-        // execute the query
-        $stmt->execute();
-    
-        // echo a message to say the delete succeeded
-        echo $stmt->rowCount() . " records delete successfully";
-        
-} 
-} catch(PDOException $e) {
- echo $sql . "<br>" . $e->getMessage();
-}
-
-$conn = null;
-
-
-?>
-                                    <form action="categoriee.php" method="post">
+                                   
+                                    <form action="php/ajouter_categorie.php" method="post">
 
                                         <div class="modal-header">
                                             <h5 class="modal-title  fw-bold" id="deleteprojectLabel">Supprimer l’élément?</h5>
@@ -354,16 +330,12 @@ $conn = null;
                                     </div>
                                 </div> <?php endwhile; ?>   
                             </div>
-                        </div> 
-                                         
-                                   
-                                    </tbody>
-                                </table>
-                            </div>
-                        
-
-                            </div>
-                    </div>
+                        </div>    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
         <!-- Modal Members-->
         <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserLabel" aria-hidden="true">
@@ -544,39 +516,7 @@ $conn = null;
         <!-- Edit Project-->
      
 
-<?php
-  include("configuration/configuration.php");
-    try {
-        if(isset($_POST['update']))
-        { 
-            
-            $id=$_POST['id_categorie'];   
-            $name= $_POST["nom_categorie"];
-            
-            $con= new PDO('mysql:host=localhost:3306;dbname=algolus','root','');
-            // set the PDO error mode to exception
-            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-            $sql = "UPDATE categorie SET nom_categorie='$name' WHERE id_categorie=$id ";
-        
-            // Prepare statement
-            $stmt = $con->prepare($sql);
-        
-            // execute the query
-            $stmt->execute();
-        
-            // echo a message to say the UPDATE succeeded
-            echo $stmt->rowCount() . " records UPDATED successfully";
-            
-    } 
- } catch(PDOException $e) {
-     echo $sql . "<br>" . $e->getMessage();
- }
- 
- $con = null;
- 
- 
- ?>
+
  <?php
       
         try{ 

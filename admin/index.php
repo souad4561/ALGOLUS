@@ -25,7 +25,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Algolus </title>
-    <link rel="icon" href="/logo0.png" type="image/x-icon"> <!-- Favicon-->
+    <link rel="icon" href="assets/images/logo2.png" type="image/x-icon"> <!-- Favicon-->
    
     <!-- project css file  -->
     <link rel="stylesheet" href="assets/css/my-task.style.min.css">
@@ -58,7 +58,15 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                <li><a class="m-link " href="categoriee.php"><i class="icofont-briefcase"></i> <span>Categories</span></a></li>
                 </li>
                 <li><a class="m-link " href="profile.php"><i class="icofont-user-male"></i> <span>Profile</span></a></li>
-</ul>
+                <li><a class="m-link " href="contact.php"><i class="icofont-users-alt-5"></i> <span>Contact</span></a></li>
+                <a class="m-link " data-bs-toggle="collapse" data-bs-target="#app-Components" href="#">
+                    <i class="icofont-contrast"></i> <span>App-Académie</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse show" id="app-Components">
+                    <li><a class="ms-link  " href="gestion-formation.php"> <span>Gestion des Formations </span></a></li>
+                    <li><a class="ms-link " href="gestionEtudiants.php"><span>Gestion des Etudiant</span></a></li>
+                </ul>
+            </ul>
                
             <!-- Theme: Switch Theme -->
             <ul class="list-unstyled mb-0">

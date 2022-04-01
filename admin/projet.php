@@ -26,7 +26,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Algolus</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+    <link rel="icon" href="favicon.png" type="image/x-icon"> <!-- Favicon-->
     <!-- plugin css file  -->
     <link rel="stylesheet" href="assets/plugin/datatables/responsive.dataTables.min.css">
     <link rel="stylesheet" href="assets/plugin/datatables/dataTables.bootstrap5.min.css">
@@ -60,7 +60,15 @@
                 </li>
                 
                 <li><a class="m-link " href="profile.php"><i class="icofont-user-male"></i> <span>Profile</span></a></li>
-
+                <li><a class="m-link " href="contact.php"><i class="icofont-users-alt-5"></i> <span>Contact</span></a></li>
+                 
+                <a class="m-link " data-bs-toggle="collapse" data-bs-target="#app-Components" href="#">
+                    <i class="icofont-contrast"></i> <span>App-Académie</span> <span class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse show" id="app-Components">
+                    <li><a class="ms-link  " href="gestion-formation.php"> <span>Gestion des Formations </span></a></li>
+                    <li><a class="ms-link " href="gestionEtudiants.php"><span>Gestion des Etudiant</span></a></li>
+                </ul>
             </ul>
                
             <!-- Theme: Switch Theme -->
@@ -239,13 +247,10 @@
                     insertion avec  succées!
             </div>
             
+
 <?php
-    endif;
-       endif;
-?>
-<?php
-    if(isset($_GET['cat'] )):
-        if($_GET['cat'] == '400' ): ?>
+    elseif(isset($_GET['cat'] )):
+        elseif($_GET['cat'] == '400' ): ?>
             <div class="alert alert-danger" role="alert">
                     insert failed!
             </div>
@@ -253,6 +258,7 @@
         endif;
     endif;
 ?>
+
                             
 <?php 
 
@@ -280,7 +286,7 @@
                             <tr>
                                 <th>Id</th> 
                                 <th>Nom</th>
-                                <th> Date</th> 
+                                <th>Date</th> 
                                 <th>Description</th> 
                                 <th>Image</th> 
                                 <th>nom_categorie</th>   
@@ -318,7 +324,7 @@
                 <div class="modal fade" id="deletetickit_<?= $row['id_projet'] ?>" tabindex="-1"  aria-hidden="true" >
                     <div class="modal-dialog modal-dialog-centered modal-md ">
                     <div class="modal-content">
-                    <form action="" method="post">
+                    <form action="php/ajouter-projet.php" method="post">
                         <div class="modal-header">
                             <h5 class="modal-title  fw-bold" id="deleteprojectLabel">Supprimer l’élément?</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -365,7 +371,7 @@
                     <h5 class="modal-title  fw-bold" id="createprojectlLabel"> modifier un projet</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form enctype="multipart/form-data" action=""  method="post">
+                <form enctype="multipart/form-data" action="php/ajouter-projet.php"  method="post">
                     <div class="modal-body">
                         <div class="mb-3">  
                             <input type="hidden" class="form-control" id="exampleFormControlInput77" name="id_projet" value="<?= $row['id_projet']  ?>">
@@ -492,100 +498,7 @@
    </div>
  </div>
  
-<?php
-  try {
-        if(isset($_POST['update']))
-        { 
-            $con= new PDO('mysql:host=localhost:3306;dbname=algolus','root','');
-            // set the PDO error mode to exception
-            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-            $id=$_POST['id_projet']; 
-            $id_categorie=$_POST['id_categorie'];  
-            $name= $_POST["nom"];
-            $date= $_POST["date"];
-            $description= $_POST["description"];
-            $image=$_FILES["image"]["name"];
-            $old_image=$_POST['image_old'];
-            $tmp=$_FILES["image"]["tmp_name"];
-            $path = '../images/project/';
-            $tmp = $_FILES['image']['tmp_name'];
-                
-                                
-                if( $_FILES["image"]["name"] !='' && $_FILES['image']['size']!=0){
-                    
-                    if (!file_exists($path)) {
-                        mkdir($path, 0777, true);
-                        
-                    }
-                
-                    $ext = pathinfo($image)['extension'];
-                    $nomImage = $path . uniqid("org-") . "." . $ext;
-                    $ext = strtolower($ext);
-                    if ($ext != 'svg' && $ext != 'png' && $ext != 'jpg' && $ext != 'jpeg' && $ext != 'ico') {
-                        echo "format invalid";
-                    }else{
-                        // header('Access-Control-Allow-Origin: *');
-                        //header('Content-type:application/json');
-                        if (move_uploaded_file($tmp, $nomImage)) {
-                            echo "enregistrer avec success";
-                        }else{
-                            echo "erreur";
-                        }
-                    }
 
-                    }else
-                    {
-                        $update=$old_image;
-                    }
-            
-                    $sql = "UPDATE projet SET nom='$name', date= '$date', description='$description',image='$update', id_categorie=$id_categorie WHERE id_projet=$id;";
-                
-                    // Prepare statement
-                    $stmt = $con->prepare($sql);
-                
-                    // execute the query
-                    $stmt->execute();
-                
-                    // echo a message to say the UPDATE succeeded
-                    echo $stmt->rowCount() . " records UPDATED successfully";
-            
-        } 
-    } catch(PDOException $e) {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-  $con = null;
-?>
-      
-<?php
-
-try {
-    if(isset($_POST['delete']))
-    { 
-         $con= new PDO('mysql:host=localhost:3306;dbname=algolus','root','');
-        $id=$_POST['id_projet'];   
-        // set the PDO error mode to exception
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-        $sql = "DELETE FROM projet  WHERE id_projet=$id ";
-    
-        // Prepare statement
-        $stmt = $con->prepare($sql);
-    
-        // execute the query
-        $stmt->execute();
-    
-        // echo a message to say the delete succeeded
-        echo  "  delete successfully";
-        
-} 
-} catch(PDOException $e) {
-//  echo $sql . "<br>" . $e->getMessage();
-}
-
-$con = null;
-?>
 
                                        
                                     </tbody>
